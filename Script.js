@@ -1,10 +1,12 @@
-// Neste código mostramos o Seno, Conseno, Tangente e Cotangente.
+// Neste código mostramos o Seno, Cosseno, Tangente, Cotangente, Secante e Cosecante.
 
 var angle;
 var waveSeno = [];
-var waveTang = [];
-var waveCSC = [];
 var waveCos = [];
+var waveTang = [];
+var waveCot = [];
+var waveSec = [];
+var waveCsc = [];
 var hipotenusa;
 var coseno;
 var seno;
@@ -24,84 +26,102 @@ function draw() {
   noFill();
   circle(0,0, raio*2);
   
-  //faz a linha passar encima do circulo
+  // Coordenadas no círculo
   var x1 = raio * cos(angle); 
   var y1 = raio * sin(angle);
-  hipotenusa = x1^2 + y1^2;
+  hipotenusa = x1**2 + y1**2;
   
+  // Eixos
   fill(255);
   stroke(255);
   line(0, -90, 0 , 90);
   line(-90, 0, 90, 0);
-  line(0,0,x1,y1); //hipotenusa
-  stroke(0,255,0); // cor verde
-  line(0,0,x1,0); //coseno
-  stroke(255,0,0); // cor vermelha
-  line(x1,0,x1,y1); // seno
+  
+  // Hipotenusa
+  line(0,0,x1,y1);
+  stroke(0,255,0); // verde -> cosseno
+  line(0,0,x1,0); 
+  stroke(255,0,0); // vermelho -> seno
+  line(x1,0,x1,y1); 
   
   circle(x1,y1,8);
-  stroke('yellow');
   
+  // valores trigonométricos
   seno = sin(angle);
   coseno = cos(angle);
   
-  var tang = raio * seno/coseno;
-  var secante1 = tan(angle)**2 + raio;
-  var cot = raio**2/tang;
-  var csc = cot + sqrt(raio);//cosecante
-  
-  line(70,0,70,tang); //tangente
+  var tang = seno / coseno;
+  var cot  = coseno / seno;
+  var sec  = 1 / coseno;
+  var csc  = 1 / seno;
+
+  // Desenho das funções
+  stroke('yellow');
+  line(raio,0,raio,raio*tang);   // tangente
+
   stroke('purple');
-  line(0, 0, secante1, tang); // linha secante
+  line(0,0,raio*sec,0);          // secante no eixo x
+
   stroke('#00d7ff');
-  line(0,0,0,csc); //cosecante
+  line(0,0,0,raio*csc);          // cosecante no eixo y
+
   stroke('orange');
-  line(x1,y1,0,csc);
+  line(x1,y1,0,raio*csc);        // ligação seno → cosecante
   
- 
-  strokeWeight(2);
-  stroke(255);
-  stroke('red');
-  
-  //cria uma linha para o grafico 
+  // Guardar valores para gráficos
   waveSeno.push(y1);
+  waveCos.push(x1);
+  waveTang.push(raio*tang);
+  waveCot.push(raio*cot);
+  waveSec.push(raio*sec);
+  waveCsc.push(raio*csc);
   
-  //linha do grafico seno e coseno
-  for(let i = 0; i < waveSeno.length; i++){
-    point(i + 70,waveSeno[i]);
+  // Limite no tamanho dos arrays (1000 pontos)
+  if (waveSeno.length > 1000) {
+    waveSeno.shift();
+    waveCos.shift();
+    waveTang.shift();
+    waveCot.shift();
+    waveSec.shift();
+    waveCsc.shift();
   }
   
-   waveCos.push(x1);
+  // Desenhar os gráficos
+  strokeWeight(2);
   
-  //linha do grafico seno e coseno
+  stroke('red');
+  for(let i = 0; i < waveSeno.length; i++){
+    point(i + 100,waveSeno[i]);
+  }
+  
   stroke('green');
-  
   for(let i = 0; i < waveCos.length; i++){
-    point(i + 70,waveCos[i]);
+    point(i + 100,waveCos[i]);
   }
   
   stroke('yellow');
-  //cria a linha do grafico da tangente 
-  waveTang.push(tang);
-  
   for(let i = 0; i < waveTang.length; i++){
-    point(i + 70, waveTang[i]);
+    point(i + 100, waveTang[i]);
   }
   
-  //cria a linha da cosecante no grafico
+  stroke('purple');
+  for(let i = 0; i < waveSec.length; i++){
+    point(i + 100, waveSec[i]);
+  }
+
   stroke('#00d7ff');
-  waveCSC.push(csc);
-  
-  for(let i = 0; i < waveCSC.length; i++){
-    point(i + 70,waveCSC[i]);
+  for(let i = 0; i < waveCsc.length; i++){
+    point(i + 100, waveCsc[i]);
   }
   
   stroke('white');
   strokeWeight(0.7);
-  text('seno: ' + round(y1,2), -90, -180);  
-  text('coseno: ' + round(x1, 2), -90, -162);
-  text('tang: ' + round(tang,2), -90, -144);
-  text('cot: ' + round(cot,2), -90, -126);
+  text('seno: ' + nf(seno,1,2), -90, -180);  
+  text('coseno: ' + nf(coseno,1,2), -90, -162);
+  text('tan: ' + nf(tang,1,2), -90, -144);
+  text('cot: ' + nf(cot,1,2), -90, -126);
+  text('sec: ' + nf(sec,1,2), -90, -108);
+  text('csc: ' + nf(csc,1,2), -90, -90);
 
   angle -= 0.02;
 }

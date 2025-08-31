@@ -1,3 +1,45 @@
+# Visualização Matemática de Funções Trigonométricas com p5.js
+
+Este projeto é uma **representação interativa do círculo trigonométrico e de suas funções derivadas**: seno, cosseno, tangente, cotangente, secante e cosecante. O objetivo é mostrar, de forma visual e dinâmica, a relação entre **geometria do círculo** e **valores das funções trigonométricas**.
+
+![Visual do Sketch](https://via.placeholder.com/800x400?text=C%C3%ADrculo+Trigonom%C3%A9trico+e+Gr%C3%A1ficos)
+
+## O Círculo Trigonométrico
+
+- O ponto percorre um círculo de raio `r`.  
+- O **cateto horizontal** é o **cosseno**: `x = r * cos(θ)`.  
+- O **cateto vertical** é o **seno**: `y = r * sin(θ)`.  
+- A hipotenusa é o próprio raio `r`.
+
+Este triângulo retângulo permite visualizar as **razões trigonométricas básicas** para qualquer ângulo θ.
+
+## Funções Derivadas e Construções Geométricas
+
+### Tangente e Secante
+
+- Tangente: `tan(θ) = seno / cosseno`. Representada como segmento vertical que intercepta a tangente ao círculo.  
+- Secante: `sec(θ) = 1 / coseno`. Representada como linha do centro do círculo até o ponto da tangente vertical.  
+
+Singularidades ocorrem quando `coseno = 0`, e nesse caso a tangente tende a ±∞.
+
+### Cotangente e Cosecante
+
+- Cotangente: `cot(θ) = cosseno / seno`. Linha horizontal tangente ao topo do círculo.  
+- Cosecante: `csc(θ) = 1 / seno`. Linha do centro até a tangente horizontal.  
+
+Singularidades ocorrem quando `seno = 0`, e a cotangente e cosecante tendem a ±∞.
+
+## Gráficos Suaves
+
+Para representar funções que divergem, utilizamos uma **compressão suave**:
+
+```javascript
+const squash = v => (2 / PI) * atan(v);
+waveTang.push(r * squash(tanVal));
+waveCot.push(r * squash(cotVal));
+waveSec.push(r * squash(secVal));
+waveCsc.push(r * squash(cscVal));
+
 - O **arctangent** (`atan`) mapeia valores infinitos para o intervalo (-1, 1), mantendo a tendência das funções sem saltos abruptos no gráfico.
 - Seno e cosseno são mapeados diretamente a partir das coordenadas do ponto no círculo.
 

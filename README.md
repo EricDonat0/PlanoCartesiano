@@ -1,24 +1,33 @@
-# Círculo Trigonométrico e Gráficos de Funções Trigonométricas (p5.js)
+# Visualização Interativa de Funções Trigonométricas (p5.js)
 
-Este projeto é uma animação interativa construída com p5.js que visualiza as funções trigonométricas clássicas: seno, cosseno, tangente, cotangente, secante e cosecante. Ele combina a representação geométrica no círculo trigonométrico com gráficos suaves das funções ao longo do tempo, permitindo compreender visualmente a relação entre os valores das funções e o círculo unitário. Funciona diretamente no navegador via [editor p5.js](https://editor.p5js.org).
+Este projeto apresenta uma **animação interativa do círculo trigonométrico** e de seus **gráficos associados**: seno, cosseno, tangente, cotangente, secante e cosecante. Ele foi desenvolvido em **p5.js** e serve como ferramenta didática para compreender a relação entre **geometria e funções trigonométricas**.
 
-No sketch, o ponto percorre o círculo no sentido anti-horário. A hipotenusa é o próprio raio do círculo, o cateto horizontal representa o cosseno e o cateto vertical representa o seno. As construções geométricas adicionais mostram a tangente, secante, cotangente e cosecante. A tangente é representada como segmento vertical que intercepta a linha tangente no círculo; a secante é uma linha do centro do círculo até o ponto da tangente; a cotangente é uma linha horizontal tangente ao topo do círculo; a cosecante é uma linha do centro até o ponto da tangente horizontal. À direita do círculo, os gráficos suaves acompanham os valores das funções em tempo real, com compressão via atan para evitar saltos verticais em funções que divergem (tan, cot, sec, csc).
+![Exemplo do Sketch](https://via.placeholder.com/600x300?text=C%C3%ADrculo+Trigonom%C3%A9trico+e+Gr%C3%A1ficos)
 
-Os cálculos principais são:
+## Sobre o Projeto
+
+O sketch mostra um **ponto percorrendo o círculo trigonométrico**, ilustrando as relações seno/cosseno como catetos de um triângulo retângulo. A hipotenusa é o raio do círculo, o cateto horizontal representa o **cosseno** e o vertical o **seno**. Além disso, são construídas as linhas auxiliares para **tangente, cotangente, secante e cosecante**, mostrando visualmente como essas funções derivam da geometria do círculo.
+
+### Construções Geométricas
+
+- **Tangente (tan)**: linha vertical a partir do ponto no círculo, representando a razão seno/cosseno.
+- **Secante (sec)**: linha que parte do centro do círculo até a tangente vertical, ilustrando 1/cos.
+- **Cotangente (cot)**: linha horizontal tangente ao topo do círculo, representando cos/sin.
+- **Cosecante (csc)**: linha do centro até a tangente horizontal, mostrando 1/sin.
+
+Estas construções ajudam a visualizar **singularidades** (valores que tendem ao infinito) e relações entre funções trigonométricas.
+
+![Construções Geométricas](https://via.placeholder.com/600x300?text=Tangente,+Secante,+Cot,+Csc)
+
+### Gráficos Suaves
+
+À direita do círculo, o sketch mantém um **painel de gráficos contínuos** para cada função. Para funções que podem divergir (tan, cot, sec, csc), aplicamos uma **compressão usando `atan`**, que preserva a tendência da função sem saltos verticais descontrolados. Isso permite comparar visualmente todas as funções no mesmo painel.
+
+- **Seno e cosseno**: mapeados diretamente a partir das coordenadas do ponto no círculo.  
+- **Tangente e cotangente**: razão entre seno/cosseno ou coseno/seno, suavizada.  
+- **Secante e cosecante**: inversos de coseno e seno, suavizados para o gráfico.  
+
 ```javascript
-const coseno = cos(angle);
-const seno = sin(angle);
-const x1 = raio * coseno;
-const y1 = raio * seno;
-
-const tanVal = seno / coseno;
-line(raio, 0, raio, raio * tanVal);
-line(0, 0, raio, raio * tanVal);
-
-const cotVal = coseno / seno;
-line(0, 0, -raio * cotVal, -raio);
-line(0, -raio, -raio * cotVal, -raio);
-
 const squash = v => (2 / PI) * atan(v);
 waveTang.push(raio * squash(tanVal));
 waveCot.push(raio * squash(cotVal));

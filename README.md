@@ -1,33 +1,36 @@
-# Círculo Trigonométrico e Gráficos Trigonométricos Interativos
+- O **arctangent** (`atan`) mapeia valores infinitos para o intervalo (-1, 1), mantendo a tendência das funções sem saltos abruptos no gráfico.
+- Seno e cosseno são mapeados diretamente a partir das coordenadas do ponto no círculo.
 
-Este projeto é uma **visualização interativa das funções trigonométricas** construída com **p5.js**, combinando **geometria, cálculo e gráficos suaves** para demonstrar como seno, cosseno, tangente, cotangente, secante e cosecante se relacionam. Ele serve como ferramenta didática para explorar relações entre o círculo trigonométrico e suas funções derivadas.
+## Valores Numéricos em Tempo Real
 
-![Visual do Sketch](https://via.placeholder.com/800x400?text=C%C3%ADrculo+Trigonom%C3%A9trico+e+Gr%C3%A1ficos)
+O sketch exibe **valores numéricos atualizados dinamicamente**, permitindo observar o efeito de cada ângulo nas funções trigonométricas e entender singularidades e tendências:
 
-## Círculo Trigonométrico
+- `seno(θ)`  
+- `coseno(θ)`  
+- `tan(θ) = seno / coseno` (quando `coseno ≠ 0`)  
+- `cot(θ) = coseno / seno` (quando `seno ≠ 0`)  
+- `sec(θ) = 1 / coseno` (quando `coseno ≠ 0`)  
+- `csc(θ) = 1 / seno` (quando `seno ≠ 0`)  
 
-No centro do canvas há um **círculo trigonométrico**, com raio definido pelo parâmetro `raio`. Um ponto percorre o círculo no sentido anti-horário. A hipotenusa do triângulo formado é o próprio raio, o cateto horizontal representa o **cosseno** (`x = raio * cos(angle)`) e o cateto vertical representa o **seno** (`y = raio * sin(angle)`).
+## Cálculos e Lógica do Código
 
-Esta visualização permite compreender como o triângulo retângulo associado a cada ângulo gera as **razões trigonométricas básicas**.
+- `coseno = cos(angle)` e `seno = sin(angle)` para coordenadas do ponto.  
+- Tangente: `tanVal = seno / coseno`.  
+- Cotangente: `cotVal = coseno / seno`.  
+- Secante: `secVal = 1 / coseno`.  
+- Cosecante: `cscVal = 1 / seno`.  
+- Compressão dos valores extremos para gráficos usando `atan`.
 
-## Construções de Tangente, Cotangente, Secante e Cosecante
+O `draw()` atualiza o ponto no círculo, desenha o triângulo e linhas auxiliares, calcula os valores das funções, atualiza gráficos e exibe valores numéricos. As funções `drawSeries` e `trimWaves` garantem **curvas suaves e performance estável**.
 
-- **Tangente (tan)**: linha vertical projetada a partir do ponto no círculo, representando `tan = seno / coseno`.
-- **Secante (sec)**: linha do centro do círculo até a interseção da tangente vertical, representando `sec = 1 / coseno`.
-- **Cotangente (cot)**: linha horizontal tangente ao topo do círculo, representando `cot = coseno / seno`.
-- **Cosecante (csc)**: linha do centro até a tangente horizontal, representando `csc = 1 / seno`.
+## Tecnologias Utilizadas
 
-Estas construções permitem visualizar **singularidades** quando as funções tendem ao infinito e como elas derivam diretamente do círculo.
+- **p5.js**: desenho e animação 2D.  
+- **JavaScript moderno**: lógica de cálculo e manipulação de arrays.  
+- **Canvas HTML5**: superfície interativa.
 
-![Construções Geométricas](https://via.placeholder.com/800x400?text=Tangente,+Secante,+Cot,+Csc)
+## Como Executar
 
-## Painel de Gráficos Suaves
-
-À direita do círculo, cada função é representada em um **painel contínuo**. Para funções que divergem (tan, cot, sec, csc), aplicamos **compressão usando arctangent (`atan`)**, preservando a tendência da função e evitando saltos verticais abruptos:
-
-```javascript
-const squash = v => (2 / PI) * atan(v);
-waveTang.push(raio * squash(tanVal));
-waveCot.push(raio * squash(cotVal));
-waveSec.push(raio * squash(secVal));
-waveCsc.push(raio * squash(cscVal));
+1. Acesse [p5.js Web Editor](https://editor.p5js.org).  
+2. Cole o código completo do projeto.  
+3. Clique em **Play** para ver a animação em ação.

@@ -2,7 +2,7 @@
 
 Este projeto é uma **representação interativa do círculo trigonométrico e de suas funções derivadas**: seno, cosseno, tangente, cotangente, secante e cosecante. O objetivo é mostrar, de forma visual e dinâmica, a relação entre **geometria do círculo** e **valores das funções trigonométricas**.
 
-![Visual do Sketch](./images/grafico2.png)
+![Visual do Sketch](./images/grafico.png)
 
 ## O Círculo Trigonométrico
 
